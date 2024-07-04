@@ -1,0 +1,87 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = QL_NhaHang
+build_property.RootNamespace = QL_NhaHang
+build_property.ProjectDir = F:\webcuoiky\webcuoiky\QL_NhaHang\QL_NhaHang\QL_NhaHang\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = F:\webcuoiky\webcuoiky\QL_NhaHang\QL_NhaHang\QL_NhaHang
+build_property._RazorSourceGeneratorDebug = 
+
+[F:/webcuoiky/webcuoiky/QL_NhaHang/QL_NhaHang/QL_NhaHang/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/webcuoiky/webcuoiky/QL_NhaHang/QL_NhaHang/QL_NhaHang/Pages/Booking.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQm9va2luZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/webcuoiky/webcuoiky/QL_NhaHang/QL_NhaHang/QL_NhaHang/Pages/Food.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRm9vZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/webcuoiky/webcuoiky/QL_NhaHang/QL_NhaHang/QL_NhaHang/Pages/Home.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/webcuoiky/webcuoiky/QL_NhaHang/QL_NhaHang/QL_NhaHang/Pages/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/webcuoiky/webcuoiky/QL_NhaHang/QL_NhaHang/QL_NhaHang/Pages/Orders.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JkZXJzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/webcuoiky/webcuoiky/QL_NhaHang/QL_NhaHang/QL_NhaHang/Pages/Popup/EditMenuPopup.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUG9wdXBcRWRpdE1lbnVQb3B1cC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/webcuoiky/webcuoiky/QL_NhaHang/QL_NhaHang/QL_NhaHang/Pages/Popup/EditTablePopup.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUG9wdXBcRWRpdFRhYmxlUG9wdXAucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/webcuoiky/webcuoiky/QL_NhaHang/QL_NhaHang/QL_NhaHang/Pages/Register.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/webcuoiky/webcuoiky/QL_NhaHang/QL_NhaHang/QL_NhaHang/Pages/Statistics.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3RhdGlzdGljcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/webcuoiky/webcuoiky/QL_NhaHang/QL_NhaHang/QL_NhaHang/Pages/Table.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGFibGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/webcuoiky/webcuoiky/QL_NhaHang/QL_NhaHang/QL_NhaHang/Shared/Messages.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1lc3NhZ2VzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/webcuoiky/webcuoiky/QL_NhaHang/QL_NhaHang/QL_NhaHang/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/webcuoiky/webcuoiky/QL_NhaHang/QL_NhaHang/QL_NhaHang/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-bfaivmkwy0
+
+[F:/webcuoiky/webcuoiky/QL_NhaHang/QL_NhaHang/QL_NhaHang/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-q93vccjef2
+
+[F:/webcuoiky/webcuoiky/QL_NhaHang/QL_NhaHang/QL_NhaHang/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/webcuoiky/webcuoiky/QL_NhaHang/QL_NhaHang/QL_NhaHang/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 

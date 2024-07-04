@@ -1,0 +1,313 @@
+﻿@page "/"
+@using QL_NhaHang.Models;
+@using Microsoft.EntityFrameworkCore;
+@using MudBlazor
+<MudCarousel Class="mud-width-full" Style="height:500px;" ShowArrows="@arrows" ShowBullets="@bullets"
+             EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
+    <MudCarouselItem Transition="transition" >
+        <div class="d-flex" style="height:100%">
+            <img src="uploads/slide5.jpg" alt="Image 1" class="mx-auto my-auto" style="max-height: 120%;" />
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="transition">
+        <div class="d-flex" style="height:100%">
+            <img src="uploads/slide13.jpg" alt="Image 1" class="mx-auto my-auto" style="max-height: 100%;" />
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="transition">
+        <div class="d-flex" style="height:100%">
+            <img src="uploads/silde9.jpg" alt="Image 3" class="mx-auto my-auto" style="max-height: 100%;" />
+        </div>
+    </MudCarouselItem>
+</MudCarousel>
+
+<!-- Dishes Section -->
+
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <style>
+       
+
+        .dish-card {
+            position: relative;
+            margin: 10px;
+        }
+
+            .dish-card img {
+                width: 100%;
+                height: auto;
+            }
+
+            .dish-card .discount {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background-color: red;
+                color: white;
+                border-radius: 50%;
+                padding: 5px 10px;
+                font-size: 0.9em;
+            }
+
+            .dish-card .price {
+                font-weight: bold;
+                color: #000;
+            }
+
+            .dish-card .old-price {
+                text-decoration: line-through;
+                color: gray;
+                font-size: 0.9em;
+            }
+
+        .slick-prev:before, .slick-next:before {
+            color: black;
+        }
+
+        .container-full {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+        }
+    </style>
+</head>
+<body>
+    <br />
+    <div class="container">
+        <h2 class="text-center">Các món ăn của Quán</h2>
+        <div class="dish-slider">
+            <div class="card dish-card">
+                <img src="uploads/dis1.jpg" class="card-img-top" alt="Dish 1">
+                <div class="discount">-11%</div>
+                <div class="card-body">
+                    <h5 class="card-title">Bánh ướt thịt heo</h5>
+                    <p class="card-text">Đặc sản Đà Nẵng</p>
+                    <p class="price">50,000VNĐ <span class="old-price">70,000VNĐ</span></p>
+                </div>
+            </div>
+            <div class="card dish-card">
+                <img src="uploads/mi4kelcx.cvi.jpg" class="card-img-top" alt="Dish 2">
+                <div class="discount">-12%</div>
+                <div class="card-body">
+                    <h5 class="card-title">Bánh Xèo</h5>
+                    <p class="card-text">Món ngon của Huế</p>
+                    <p class="price">7,000VNĐ <span class="old-price">9,000VNĐ</span></p>
+                </div>
+            </div>
+            <div class="card dish-card">
+                <img src="uploads/dis5.jpg" class="card-img-top" alt="Dish 3">
+                <div class="discount">-9%</div>
+                <div class="card-body">
+                    <h5 class="card-title">Bánh Lọc</h5>
+                    <p class="card-text">Bánh lọc Thuận An</p>
+                    <p class="price">30,000VNĐ <span class="old-price">40,000VNĐ</span></p>
+                </div>
+            </div>
+            <div class="card dish-card">
+                <img src="uploads/dis2.jpg" class="card-img-top" alt="Dish 4">
+                <div class="discount">-11%</div>
+                <div class="card-body">
+                    <h5 class="card-title">Bún Bò Huế</h5>
+                    <p class="card-text">Đặc sản của Huế</p>
+                    <p class="price">30,000VNĐ <span class="old-price">40,000VNĐ</span></p>
+                </div>
+            </div>
+            <div class="card dish-card">
+                <img src="uploads/dis6.jpg" class="card-img-top" alt="Dish 5">
+                <div class="discount">-14%</div>
+                <div class="card-body">
+                    <h5 class="card-title">Chè Huế</h5>
+                    <p class="card-text">Chè món ngon mát mẻ</p>
+                    <p class="price">150,000VNĐ <span class="old-price">170,000VNĐ</span></p>
+                </div>
+            </div>
+            <div class="card dish-card">
+                <img src="uploads/dis4.jpg" class="card-img-top" alt="Dish 6">
+                <div class="discount">-13%</div>
+                <div class="card-body">
+                    <h5 class="card-title">Bánh Ép</h5>
+                    <p class="card-text">Bánh ngon khi đến Huế</p>
+                    <p class="price">8,000VNĐ <span class="old-price">10,000VNĐ</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dish-slider').slick({
+                infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                arrows: true,
+                dots: true,
+            });
+        });
+    </script>
+</body>
+
+
+
+
+
+<div class="reservation-form">
+    <div class="container">
+        <h2 class="text-center">Thông tin đặt hàng</h2>
+        <form @onsubmit="SaveOrder">
+            <div class="form-group">
+                <label for="customerName">Tên Khách Hàng</label>
+                <input type="text" class="form-control" id="customerName" @bind="order.CustomerName" placeholder="Nhập tên khách hàng" required>
+            </div>
+            <div class="form-group">
+                <label for="numberPhone">Số điện thoại</label>
+                <input type="text" class="form-control" id="numberPhone" @bind="order.NumberPhone" placeholder="Nhập số điện thoại" required>
+            </div>
+            <div class="form-group">
+                <label for="tableSelect">Chọn bàn</label>
+                <select class="form-control" id="tableSelect" @bind="order.IdTable">
+                    <option value="" disabled selected>Chọn bàn</option>
+                    @foreach (var dinnerTable in dinnerTables)
+                    {
+                        <option value="@dinnerTable.Id">@dinnerTable.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="date">Ngày Đặt Hàng</label>
+                <input type="date" class="form-control" id="date" @bind="order.Date" required>
+            </div>
+            <h4>Danh sách món ăn</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Món ăn</th>
+                        <th>Số lượng</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in order.ItemOrders)
+                    {
+                        <tr>
+                            <td>
+                                <select class="form-control" @bind="item.IdMenu">
+                                    <option value="" disabled selected>Chọn thực đơn</option>
+                                    @foreach (var menu in menus)
+                                    {
+                                        <option value="@menu.Id">@menu.Name</option>
+                                    }
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" @bind="item.Number" placeholder="Số Lượng" required>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" @onclick="() => RemoveMenuItem(item)">Xóa</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-primary mt-3" @onclick="AddMenuItem">Thêm thực đơn</button>
+
+            <button type="submit" class="btn btn-primary mt-3">Lưu Đơn Hàng</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var prevButton = document.querySelector('.carousel-control-prev');
+        var nextButton = document.querySelector('.carousel-control-next');
+        var carouselInner = document.querySelector('.carousel-inner');
+        var indicators = document.querySelectorAll('.carousel-indicators li');
+        var items = document.querySelectorAll('.carousel-item');
+        var currentIndex = 0;
+
+        function updateCarousel(index) {
+            items.forEach(function (item, i) {
+                item.classList.remove('active');
+                if (i === index) {
+                    item.classList.add('active');
+                }
+            });
+            indicators.forEach(function (indicator, i) {
+                indicator.classList.remove('active');
+                if (i === index) {
+                    indicator.classList.add('active');
+                }
+            });
+        }
+
+        prevButton.addEventListener('click', function () {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : items.length - 1;
+            updateCarousel(currentIndex);
+        });
+
+        nextButton.addEventListener('click', function () {
+            currentIndex = (currentIndex < items.length - 1) ? currentIndex + 1 : 0;
+            updateCarousel(currentIndex);
+        });
+
+        indicators.forEach(function (indicator, i) {
+            indicator.addEventListener('click', function () {
+                currentIndex = i;
+                updateCarousel(currentIndex);
+            });
+        });
+    });
+</script>
+@code {
+    private bool arrows = true;
+    private bool bullets = true;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+    private Transition transition = Transition.Slide;
+    public Order order = new Order();
+    public List<Menu> menus = new List<Menu>();
+    public List<DinnerTable> dinnerTables = new List<DinnerTable>();
+    public readonly QlNhaHangContext _context = new QlNhaHangContext(); 
+
+    protected override async Task OnInitializedAsync()
+    {
+        order = new Order
+            {
+                ItemOrders = new List<ItemOrder>()
+            };
+        menus = await _context.Menus.ToListAsync();
+        
+        dinnerTables = await _context.DinnerTables.ToListAsync();
+    }
+
+    async Task SaveOrder()
+    {
+        order.Id = Guid.NewGuid();
+        order.Status = false;
+        order.CreateAt = DateTime.Now;
+        foreach (var itemOrder in order.ItemOrders)
+        {
+            itemOrder.Id = Guid.NewGuid(); 
+            itemOrder.IdOrder = order.Id;
+            _context.ItemOrders.Add(itemOrder);
+        }
+        _context.Orders.Add(order);
+        await _context.SaveChangesAsync();
+        order = new Order
+        {
+            ItemOrders = new List<ItemOrder>()
+        };
+    }
+
+    void AddMenuItem()
+    {
+        var newItemOrder = new ItemOrder();
+        order.ItemOrders.Add(newItemOrder);
+    }
+
+    void RemoveMenuItem(ItemOrder item)
+    {
+        order.ItemOrders.Remove(item);
+    }
+}

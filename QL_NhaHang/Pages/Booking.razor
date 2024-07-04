@@ -1,0 +1,394 @@
+﻿@page "/Admin/Booking"
+@using QL_NhaHang.Models
+@using Microsoft.EntityFrameworkCore
+@inject QlNhaHangContext _context
+@inject IWebHostEnvironment WebHostEnvironment
+@inject NavigationManager Navigation
+@using Microsoft.AspNetCore.Components.Authorization
+
+<style>
+    .table td, .table th {
+        vertical-align: middle;
+    }
+
+    .status-cell.green {
+        background-color: lightgreen;
+    }
+
+    .status-cell.orange {
+        background-color: orange;
+    }
+
+    .modal.show {
+        display: block;
+        background: rgba(0, 0, 0, 0.5);
+    }
+</style>
+
+<AuthorizeView>
+    <Authorized>
+        <br />
+        <br />
+        <h2 class="text-center mb-4">Danh sách lịch đặt bàn</h2>
+
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Tìm kiếm" @bind="searchTerm" @bind:event="oninput" />
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" @onclick="SearchOrders">Tìm kiếm</button>
+            </div>
+        </div>
+
+        @if (filteredOrders != null && filteredOrders.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>STT</th> <!-- New serial number column header -->
+                            <th>Tên Khách Hàng</th>
+                            <th>Số Điện Thoại</th>
+                            <th>Bàn</th>
+                            <th>Ngày Đặt</th>
+                            <th>Ngày tạo</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in PaginatedOrders.Select((value, index) => new { value, index })) 
+                        {
+                            <tr>
+                                <td>@(order.index + 1 + (CurrentPage - 1) * PageSize)</td> <!-- Display serial number -->
+          
+                                <td>@order.value.CustomerName</td>
+                                <td>@order.value.NumberPhone</td>
+                                <td>@order.value.IdTableNavigation.Name</td>
+                                <td>@order.value.Date?.ToString("dd/MM/yyyy")</td>
+                                <td>@order.value.CreateAt?.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                                <td class="status-cell @(order.value.Status.HasValue && order.value.Status.Value ? "green" : "orange")">
+                                    <span>@(order.value.Status.HasValue && order.value.Status.Value ? "Đã thanh toán" : "Chưa thanh toán")</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" @onclick="() => ShowOrderDetails(order.value.Id)">Xem</button>
+                                    <button class="btn btn-sm btn-info" @onclick="() => TogglePaymentStatus(order.value.Id)">
+                                        @(order.value.Status.HasValue && order.value.Status.Value ? "Chưa thanh toán" : "Thanh toán")
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" @onclick="() => DeleteOrder(order.value.Id)">Xóa</button>
+                                </td>
+                            </tr>
+                            @if (showOrderDetails && selectedOrderId == order.value.Id)
+                            {
+                                <tr>
+                                    <td colspan="9">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5>Chi tiết menu</h5>
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Ảnh</th>
+                                                                <th>Tên món ăn</th>
+                                                                <th>Giá</th>
+                                                                <th>Số lượng</th>
+                                                                <th>Hành động</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var item in order.value.ItemOrders)
+                                                            {
+                                                                <tr>
+                                                                    <td><img style="height: 100px; width: auto" src="@item.IdMenuNavigation?.Img" /></td>
+                                                                    <td>@item.IdMenuNavigation?.Name</td>
+                                                                    <td>@item.IdMenuNavigation?.Price?.ToString("N0") VNĐ</td>
+                                                                    <td>@item.Number</td>
+                                                                    <td>
+                                                                        <button class="btn btn-sm btn-warning" @onclick="() => ShowUpdateMenuModal(item)">Cập nhật</button>
+                                                                        <button class="btn btn-sm btn-danger" @onclick="() => DeleteMenuItem(item.Id)">Xóa</button>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                            <tr>
+                                                                <td colspan="4" class="text-right font-weight-bold">Tổng tiền:</td>
+                                                                <td>@order.value.TotalPrice?.ToString("N0") VNĐ</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="d-flex justify-content-between mt-3">
+                                                    <button class="btn btn-primary" @onclick="ShowAddMenuModal">Thêm món ăn</button>
+                                                    <button class="btn btn-secondary" @onclick="HideOrderDetails">Đóng</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination">
+                <a class="@GetPageClass(CurrentPage - 1)" @onclick="() => ChangePage(CurrentPage - 1)">«</a>
+                @for (int i = 1; i <= TotalPages; i++)
+                {
+                    <a class="@GetPageClass(i)" @onclick="() => ChangePage(i)">@i</a>
+                }
+                <a class="@GetPageClass(CurrentPage + 1)" @onclick="() => ChangePage(CurrentPage + 1)">»</a>
+            </div>
+        }
+        else
+        {
+            <p class="text-center text-muted">Không có đơn hàng nào.</p>
+        }
+
+        @if (showUpdateMenuModal)
+        {
+            <div class="modal show d-block" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Cập nhật số lượng món ăn</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="CloseUpdateMenuModal">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="menuQuantity">Số lượng</label>
+                                <input type="number" class="form-control" id="menuQuantity" @bind="selectedMenuItem.Number" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" @onclick="UpdateMenuItem">Lưu thay đổi</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="CloseUpdateMenuModal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (showAddMenuModal)
+        {
+            <div class="modal show d-block" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Thêm món ăn</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="CloseAddMenuModal">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="selectMenu">Chọn món ăn</label>
+                                <select id="selectMenu" class="form-control" @bind="selectedMenuId">
+                                    <option value="">Chọn món ăn</option>
+                                    @foreach (var menu in allMenus)
+                                    {
+                                        <option value="@menu.Id">@menu.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="menuQuantity">Số lượng</label>
+                                <input type="number" class="form-control" id="menuQuantity" @bind="selectedMenuQuantity" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" @onclick="AddMenuItemToOrder">Thêm</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="CloseAddMenuModal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>Bạn không có quyền truy cập vào trang này. Vui lòng <a href="/Admin">đăng nhập</a>.</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private List<Order> orders = new List<Order>();
+    private List<Order> filteredOrders = new List<Order>();
+    private List<Menu> allMenus = new List<Menu>();
+    public Guid? selectedOrderId = null;
+    public Guid selectedMenuId = Guid.Empty;
+    public int selectedMenuQuantity = 1;
+    public bool showOrderDetails = false;
+    public bool showUpdateMenuModal = false;
+    public ItemOrder selectedMenuItem = new ItemOrder();
+    public bool showAddMenuModal = false;
+    public string searchTerm { get; set; } = string.Empty;
+
+    private const int PageSize = 5; // Set page size to 5
+    private int CurrentPage = 1;
+    private int TotalPages => (int)Math.Ceiling((double)filteredOrders.Count / PageSize);
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        orders = await _context.Orders
+            .Include(o => o.IdTableNavigation)
+            .Include(o => o.ItemOrders)
+            .ThenInclude(io => io.IdMenuNavigation)
+            .ToListAsync();
+
+        allMenus = await _context.Menus.ToListAsync();
+        filteredOrders = orders;
+        StateHasChanged();
+    }
+
+    private List<Order> PaginatedOrders => filteredOrders
+        .Skip((CurrentPage - 1) * PageSize)
+        .Take(PageSize)
+        .ToList();
+
+    private void ChangePage(int pageNumber)
+    {
+        if (pageNumber > 0 && pageNumber <= TotalPages)
+        {
+            CurrentPage = pageNumber;
+            StateHasChanged();
+        }
+    }
+
+    private string GetPageClass(int pageNumber)
+    {
+        return pageNumber == CurrentPage ? "active" : "";
+    }
+
+    private void SearchOrders()
+    {
+        filteredOrders = string.IsNullOrWhiteSpace(searchTerm)
+            ? orders
+            : orders.Where(o =>
+                (o.CustomerName != null && o.CustomerName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) ||
+                (o.NumberPhone != null && o.NumberPhone.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) ||
+                (o.IdTableNavigation != null && o.IdTableNavigation.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))).ToList();
+
+        CurrentPage = 1; // Reset to first page after search
+        StateHasChanged();
+    }
+
+    public async Task TogglePaymentStatus(Guid Id)
+    {
+        var order = await _context.Orders.FirstOrDefaultAsync(x => x.Id == Id);
+        if (order != null)
+        {
+            order.Status = !order.Status ?? true;
+            await _context.SaveChangesAsync();
+            await OnInitializedAsync();
+            StateHasChanged();
+        }
+    }
+
+    void ShowOrderDetails(Guid orderId)
+    {
+        selectedOrderId = orderId;
+        showOrderDetails = true;
+    }
+
+    void HideOrderDetails()
+    {
+        showOrderDetails = false;
+        selectedOrderId = null;
+    }
+
+    void ShowUpdateMenuModal(ItemOrder menuItem)
+    {
+        selectedMenuItem = menuItem;
+        showUpdateMenuModal = true;
+    }
+
+    async Task UpdateMenuItem()
+    {
+        var item = await _context.ItemOrders.FirstOrDefaultAsync(x => x.Id == selectedMenuItem.Id);
+        if (item != null)
+        {
+            item.Number = selectedMenuItem.Number;
+            await _context.SaveChangesAsync();
+            showUpdateMenuModal = false;
+            await OnInitializedAsync();
+            StateHasChanged();
+        }
+    }
+
+    void CloseUpdateMenuModal()
+    {
+        showUpdateMenuModal = false;
+    }
+
+    async Task DeleteMenuItem(Guid menuItemId)
+    {
+        var menuItem = await _context.ItemOrders.FirstOrDefaultAsync(x => x.Id == menuItemId);
+        if (menuItem != null)
+        {
+            _context.ItemOrders.Remove(menuItem);
+            await _context.SaveChangesAsync();
+            await OnInitializedAsync();
+            StateHasChanged();
+        }
+    }
+
+    public async Task DeleteOrder(Guid orderId)
+    {
+        var order = await _context.Orders
+            .Include(o => o.ItemOrders)
+            .FirstOrDefaultAsync(o => o.Id == orderId);
+
+        if (order != null)
+        {
+            _context.ItemOrders.RemoveRange(order.ItemOrders);
+            _context.Orders.Remove(order);
+            await _context.SaveChangesAsync();
+            await OnInitializedAsync(); // Refresh the data
+            StateHasChanged(); // Update the UI
+        }
+    }
+
+    void ShowAddMenuModal()
+    {
+        showAddMenuModal = true;
+    }
+
+    void CloseAddMenuModal()
+    {
+        showAddMenuModal = false;
+    }
+
+    async Task AddMenuItemToOrder()
+    {
+        if (selectedOrderId.HasValue && selectedMenuId != Guid.Empty && selectedMenuQuantity > 0)
+        {
+            var order = await _context.Orders.Include(o => o.ItemOrders).FirstOrDefaultAsync(o => o.Id == selectedOrderId);
+            if (order != null)
+            {
+                var menu = await _context.Menus.FindAsync(selectedMenuId);
+                if (menu != null)
+                {
+                    var newItemOrder = new ItemOrder
+                        {
+                            Id = Guid.NewGuid(),
+                            IdOrder = selectedOrderId,
+                            IdMenu = selectedMenuId,
+                            Number = selectedMenuQuantity,
+                            IdMenuNavigation = menu
+                        };
+
+                    order.ItemOrders.Add(newItemOrder);
+                    await _context.SaveChangesAsync();
+                    await OnInitializedAsync();
+                    CloseAddMenuModal();
+                    StateHasChanged();
+                }
+            }
+        }
+    }
+}

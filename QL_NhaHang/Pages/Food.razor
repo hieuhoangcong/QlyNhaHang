@@ -1,0 +1,286 @@
+﻿@page "/Admin/Food"
+@using Microsoft.EntityFrameworkCore;
+@using QL_NhaHang.Models;
+@using Microsoft.AspNetCore.Components.Forms;
+@inject IWebHostEnvironment WebHostEnvironment;
+@inject NavigationManager Navigation;
+@using Microsoft.AspNetCore.Components.Authorization
+
+<style>
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .table td, .table th {
+        vertical-align: middle;
+    }
+
+    .food-edit {
+        background-color: orange !important;
+        color: white !important;
+    }
+
+        .food-edit:hover {
+            background-color: darkorange !important;
+            color: white !important;
+        }
+
+    .food-delete {
+        background-color: red !important;
+        color: white !important;
+    }
+
+        .food-delete:hover {
+            background-color: darkred !important;
+            color: white !important;
+        }
+
+    .food-add {
+        background-color: blue !important;
+        color: white !important;
+    }
+
+        .food-add:hover {
+            background-color: darkblue !important;
+            color: white !important;
+        }
+
+    .card-header {
+        background-color: #007bff;
+        color: white;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .container {
+        max-width: 80%;
+        margin: 0 auto;
+    }
+
+    .validation-message {
+        color: red;
+        font-size: 0.9em;
+    }
+</style>
+
+<AuthorizeView>
+    <Authorized>
+        
+        <div class="container">
+            <br />
+            <br />
+            <h2 class="text-center mb-4">Quản lý thực đơn</h2>
+            <div class="card mb-4 wider-card">
+                <div class="card-header">
+                    <h5 class="card-title">Danh sách thực đơn</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Tìm kiếm thực đơn..." @bind="searchTerm" @oninput="FilterMenus" />
+                    </div>
+                    <div class="table-container">
+                        <table class="table table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Ảnh</th>
+                                    <th>Món ăn</th>
+                                    <th>Mô tả</th>
+                                    <th>Giá</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in PagedMenus)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td><img style="height: 100px; width: auto" src="@item.Img" /></td>
+                                        <td>@item.Name</td>
+                                        <td>@item.Description</td>
+                                        <td>@item.Price.Value.ToString("N0") VNĐ</td>
+                                        <td>
+                                            <button class="food-edit btn btn-sm" @onclick="() => OpenEditMenuModal(item)">Chỉnh sửa</button>
+                                            <button class="food-delete btn btn-sm" @onclick="() => DeleteMenu(item.Id)">Xóa</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <nav>
+                        <ul class="pagination">
+                            <li class="page-item @(!HasPrevPage ? "disabled" : "")">
+                                <button class="page-link" @onclick="PrevPage" aria-disabled="@(!HasPrevPage)">Previous</button>
+                            </li>
+                            <li class="page-item disabled">
+                                <span class="page-link">Page @CurrentPage of @TotalPages</span>
+                            </li>
+                            <li class="page-item @(!HasNextPage ? "disabled" : "")">
+                                <button class="page-link" @onclick="NextPage" aria-disabled="@(!HasNextPage)">Next</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="card wider-card">
+                <div class="card-header">
+                    <h5 class="card-title">Thêm món ăn mới</h5>
+                </div>
+                <div class="card-body">
+                    <EditForm Model="@Menu" OnValidSubmit="AddMenu">
+                        <ChildContent Context="editFormContext">
+                            <div class="form-group">
+                                <label for="foodName">Tên món ăn</label>
+                                <InputText class="form-control" id="foodName" @bind-Value="Menu.Name" placeholder="Tên món ăn" />
+                            </div>
+                            <div class="form-group">
+                                <label for="foodImage">Ảnh</label>
+                                <InputFile class="form-control" id="foodImage" OnChange="UploadImage" />
+                            </div>
+                            <div class="form-group">
+                                <label for="foodDescription">Mô tả</label>
+                                <InputTextArea class="form-control" id="foodDescription" @bind-Value="Menu.Description" rows="3" placeholder="Mô tả món ăn" />
+                            </div>
+                            <div class="form-group">
+                                <label for="foodPrice">Giá</label>
+                                <InputNumber class="form-control" id="foodPrice" @bind-Value="Menu.Price" placeholder="Giá món ăn" />
+                            </div>
+                            <div class="d-flex justify-content-center mt-3">
+                                <button type="submit" class="food-add btn">Thêm món ăn</button>
+                            </div>
+                        </ChildContent>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+        <QL_NhaHang.Pages.Popup.EditMenuPopup Item="Menu1" IsVisible="isEditMenuPopupVisible" IsVisibleChanged="@(isVisible2 => isEditMenuPopupVisible = isVisible2)" />
+        <Messages Title="Thông báo" Mess="@message" IsVisible="@isVisible" IsYesNo="false" OnOk="OkHandler"></Messages>
+    </Authorized>
+    <NotAuthorized>
+        <p>Bạn không có quyền truy cập vào trang này. Vui lòng <a href="/Admin">đăng nhập</a>.</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    public readonly QlNhaHangContext _context = new QlNhaHangContext();
+    public List<Menu> menus = new List<Menu>();
+    public List<Menu> PagedMenus = new List<Menu>();
+    public Menu Menu = new Menu();
+    public Menu Menu1 = new Menu();
+    public string message;
+    public bool isVisible = false;
+    bool isEditMenuPopupVisible = false;
+    public string searchTerm { get; set; } = "";
+
+    private int PageSize = 5;
+    private int CurrentPage = 1;
+    private int TotalPages => (int)Math.Ceiling((double)menus.Count / PageSize);
+
+    protected override async Task OnInitializedAsync()
+    {
+        menus = await _context.Menus.ToListAsync();
+        UpdatePagedMenus();
+    }
+
+    private void UpdatePagedMenus()
+    {
+        var filteredMenus = menus.Where(m => m.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) || m.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+        PagedMenus = filteredMenus.Skip((CurrentPage - 1) * PageSize).Take(PageSize).ToList();
+        StateHasChanged();
+    }
+
+    private async Task AddMenu()
+    {
+        if (string.IsNullOrEmpty(Menu.Name) || string.IsNullOrEmpty(Menu.Img) || string.IsNullOrEmpty(Menu.Description) || Menu.Price == null || Menu.Price <= 0)
+        {
+            // Hiển thị thông báo lỗi hoặc xử lý phù hợp
+            message = "Vui lòng điền đầy đủ thông tin món ăn.";
+            isVisible = true;
+            return;
+        }
+
+        Menu.Id = Guid.NewGuid();
+        _context.Menus.Add(Menu);
+        await _context.SaveChangesAsync();
+
+        Menu = new Menu();
+        message = "Thêm thành công!!!";
+        isVisible = true;
+        await RefreshMenuList();
+    }
+
+    private async Task UploadImage(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        var fileName = Path.GetRandomFileName() + Path.GetExtension(file.Name);
+        var filePath = Path.Combine(WebHostEnvironment.WebRootPath, "uploads", fileName);
+
+        Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await file.OpenReadStream().CopyToAsync(stream);
+        }
+
+        Menu.Img = $"uploads/{fileName}";
+    }
+
+    private async Task DeleteMenu(Guid id)
+    {
+        var menu = await _context.Menus.FindAsync(id);
+        if (menu != null)
+        {
+            _context.Menus.Remove(menu);
+            await _context.SaveChangesAsync();
+            message = "Xóa thành công!!!";
+            isVisible = true;
+            await RefreshMenuList();
+        }
+    }
+
+    private async Task RefreshMenuList()
+    {
+        menus = await _context.Menus.ToListAsync();
+        CurrentPage = 1;
+        UpdatePagedMenus();
+    }
+
+    public void OkHandler()
+    {
+        isVisible = false;
+    }
+
+    void OpenEditMenuModal(Menu item)
+    {
+        Menu1 = item;
+        isEditMenuPopupVisible = true;
+    }
+
+    private void NextPage()
+    {
+        if (HasNextPage)
+        {
+            CurrentPage++;
+            UpdatePagedMenus();
+        }
+    }
+
+    private void PrevPage()
+    {
+        if (HasPrevPage)
+        {
+            CurrentPage--;
+            UpdatePagedMenus();
+        }
+    }
+
+    private bool HasPrevPage => CurrentPage > 1;
+    private bool HasNextPage => CurrentPage < TotalPages;
+
+    private void FilterMenus(ChangeEventArgs e)
+    {
+        searchTerm = e.Value.ToString();
+        UpdatePagedMenus();
+    }
+}

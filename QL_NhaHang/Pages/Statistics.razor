@@ -1,0 +1,198 @@
+﻿@page "/Admin/Statistics"
+@using Microsoft.EntityFrameworkCore
+@using QL_NhaHang.Models
+@inject QlNhaHangContext _context
+@inject IJSRuntime JSRuntime
+@using Microsoft.AspNetCore.Components.Authorization
+
+<style>
+    .dashboard {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .dashboard-card {
+        flex: 1 1 calc(33.333% - 20px);
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+        color: #fff;
+    }
+
+    .dashboard-card h3 {
+        margin: 0;
+        font-size: 2.5rem;
+    }
+
+    .dashboard-card p {
+        margin: 5px 0 0;
+        font-size: 1.25rem;
+    }
+
+    .chart-container {
+        width: 100%;
+        height: 400px;
+    }
+
+    .card-bg-1 { background-color: #ff6f61; }
+    .card-bg-2 { background-color: #6cb2eb; }
+    .card-bg-3 { background-color: #48c774; }
+    .card-bg-4 { background-color: #ffdd57; }
+    .card-bg-5 { background-color: #b294bb; }
+    .card-bg-6 { background-color: #f66d9b; }
+
+ 
+</style>
+
+<AuthorizeView>
+    <Authorized>
+        <br />
+        <br />
+        <h2 class="text-center mb-4">Tổng quan</h2>
+
+        <div class="dashboard">
+            <div class="dashboard-card card-bg-1">
+                <h3>@MenuCount</h3>
+                <p>Sản phẩm</p>
+            </div>
+            <div class="dashboard-card card-bg-2">
+                <h3>@TableCount</h3>
+                <p>Bàn ăn</p>
+            </div>
+            <div class="dashboard-card card-bg-3">
+                <h3>@paidOrders / @unpaidOrders</h3>
+                <p>Đã thanh toán / Chưa thanh toán</p>
+            </div>
+            <div class="dashboard-card card-bg-4">
+                <h3>@AdminCount</h3>
+                <p>Quản trị</p>
+            </div>
+            <div class="dashboard-card card-bg-5">
+                <h3>@totalRevenue VNĐ</h3>
+                <p>Tổng doanh thu</p>
+            </div>
+            <div class="dashboard-card card-bg-6">
+                <h3>@todayRevenue VNĐ</h3>
+                <p>Doanh thu hôm nay</p>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title">Doanh thu theo ngày tạo</h5>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title">Số lượng hóa đơn theo ngày tạo</h5>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="ordersChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <p>Bạn không có quyền truy cập vào trang này. Vui lòng <a href="/Admin">đăng nhập</a>.</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private int MenuCount;
+    private int TableCount;
+    private int AdminCount;
+    private int paidOrders;
+    private int unpaidOrders;
+    private List<Order> orders = new List<Order>();
+    private Dictionary<DateTime, decimal> dailyRevenue = new Dictionary<DateTime, decimal>();
+    private Dictionary<DateTime, int> dailyOrdersCount = new Dictionary<DateTime, int>();
+    private decimal totalRevenue;
+    private decimal todayRevenue;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+        CalculateStatistics();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            try
+            {
+                await DrawCharts();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error rendering charts: {ex.Message}");
+            }
+        }
+    }
+
+    private async Task LoadData()
+    {
+        try
+        {
+            MenuCount = await _context.Menus.CountAsync();
+            TableCount = await _context.DinnerTables.CountAsync();
+            AdminCount = await _context.Admins.CountAsync();
+
+            orders = await _context.Orders
+                .Include(o => o.IdTableNavigation)
+                .Include(o => o.ItemOrders)
+                .ThenInclude(io => io.IdMenuNavigation)
+                .ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading data: {ex.Message}");
+        }
+    }
+
+    private void CalculateStatistics()
+    {
+        try
+        {
+            paidOrders = orders.Count(o => o.Status.HasValue && o.Status.Value);
+            unpaidOrders = orders.Count(o => !o.Status.HasValue || !o.Status.Value);
+
+            dailyRevenue = orders
+                .GroupBy(o => o.CreateAt.Value.Date)
+                .ToDictionary(g => g.Key, g => g.Sum(o => o.TotalPrice ?? 0));
+
+            dailyOrdersCount = orders
+                .GroupBy(o => o.CreateAt.Value.Date)
+                .ToDictionary(g => g.Key, g => g.Count());
+
+            totalRevenue = dailyRevenue.Values.Sum();
+            todayRevenue = dailyRevenue.TryGetValue(DateTime.Now.Date, out decimal revenue) ? revenue : 0;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error calculating statistics: {ex.Message}");
+        }
+    }
+
+    private async Task DrawCharts()
+    {
+        var revenueLabels = dailyRevenue.Keys.Select(k => k.ToString("dd/MM/yyyy")).ToArray();
+        var revenueData = dailyRevenue.Values.ToArray();
+        var ordersLabels = dailyOrdersCount.Keys.Select(k => k.ToString("dd/MM/yyyy")).ToArray();
+        var ordersData = dailyOrdersCount.Values.ToArray();
+
+        await JSRuntime.InvokeVoidAsync("drawChart", "revenueChart", revenueLabels, revenueData, "Doanh thu", "line");
+        await JSRuntime.InvokeVoidAsync("drawChart", "ordersChart", ordersLabels, ordersData, "Số lượng hóa đơn", "bar");
+    }
+}

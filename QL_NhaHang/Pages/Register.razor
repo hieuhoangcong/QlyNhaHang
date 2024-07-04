@@ -1,0 +1,206 @@
+﻿@page "/Admin/Register"
+@using Microsoft.EntityFrameworkCore
+@using QL_NhaHang.Models
+@using Blazored.LocalStorage
+@inject ILocalStorageService localStorage
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject QlNhaHangContext _context
+
+<div class="register-container">
+    <div class="register-card">
+        <div class="register-right">
+            <div class="register-card-body">
+                <h2 class="text-center mb-4">Đăng ký</h2>
+                <EditForm Model="this" OnValidSubmit="RegisterHandler">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <div class="form-group">
+                        <label for="username">Tên đăng nhập</label>
+                        <InputText id="username" class="form-control" @bind-Value="Username" placeholder="Nhập tên đăng nhập" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Mật khẩu</label>
+                        <div class="input-group">
+                            <InputText id="password" type="@passwordInputType" class="form-control" @bind-Value="Password" placeholder="Nhập mật khẩu" />
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary" @onclick="TogglePasswordVisibility">
+                                    @passwordToggleIcon
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Xác nhận mật khẩu</label>
+                        <div class="input-group">
+                            <InputText id="confirmPassword" type="@confirmPasswordInputType" class="form-control" @bind-Value="ConfirmPassword" placeholder="Nhập lại mật khẩu" />
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary" @onclick="ToggleConfirmPasswordVisibility">
+                                    @confirmPasswordToggleIcon
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Đăng ký</button>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
+
+<Messages Title="Thông báo" Mess="@message" IsVisible="@isVisible" IsYesNo="false" OnOk="OkHandler"></Messages>
+<style>
+    .register-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: url('uploads/hoahong.jpg') no-repeat center center;
+        background-size: cover;
+    }
+
+    .register-card {
+        width: 40%;
+        margin: 10px auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 50px; 
+        transform: translateY(-80px);
+    }
+
+    .register-left {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .register-right {
+        padding: 40px; 
+    }
+
+    .register-image {
+        width: 150px; 
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    .register-card-body {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .form-group {
+        margin-bottom: 25px; 
+    }
+
+    .input-group {
+        position: relative;
+    }
+
+    .input-group-append {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+</style>
+@code {
+    private string Username { get; set; }
+    private string Password { get; set; }
+    private string ConfirmPassword { get; set; }
+    private string passwordInputType = "password";
+    private string confirmPasswordInputType = "password";
+    private string passwordToggleIcon = "👁️"; 
+    private string confirmPasswordToggleIcon = "👁️";
+    private string message { get; set; }
+    private bool isVisible = false;
+
+    private void TogglePasswordVisibility()
+    {
+        if (passwordInputType == "password")
+        {
+            passwordInputType = "text";
+            passwordToggleIcon = "🙈"; 
+        }
+        else
+        {
+            passwordInputType = "password";
+            passwordToggleIcon = "👁️"; 
+        }
+    }
+
+    private void ToggleConfirmPasswordVisibility()
+    {
+        if (confirmPasswordInputType == "password")
+        {
+            confirmPasswordInputType = "text";
+            confirmPasswordToggleIcon = "🙈"; 
+        }
+        else
+        {
+            confirmPasswordInputType = "password";
+            confirmPasswordToggleIcon = "👁️"; 
+        }
+    }
+
+    private async Task RegisterHandler()
+    {
+        if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(ConfirmPassword))
+        {
+            isVisible = true;
+            message = "Vui lòng nhập tên đăng nhập và mật khẩu.";
+            return;
+        }
+
+        if (Password != ConfirmPassword)
+        {
+            isVisible = true;
+            message = "Mật khẩu và mật khẩu xác nhận không khớp.";
+            return;
+        }
+
+        var existingUser = await _context.Admins.FirstOrDefaultAsync(u => u.UserName == Username);
+        if (existingUser != null)
+        {
+            isVisible = true;
+            message = "Tên đăng nhập đã tồn tại. Vui lòng chọn tên đăng nhập khác.";
+            return;
+        }
+
+        var newUser = new Admin
+            {
+                UserName = Username,
+                Passwork = Password
+            };
+
+        try
+        {
+            _context.Admins.Add(newUser);
+            await _context.SaveChangesAsync();
+            isVisible = true;
+            message = "Đăng ký thành công! Bạn có thể đăng nhập.";
+        }
+        catch (Exception ex)
+        {
+            isVisible = true;
+            message = "Đã có lỗi xảy ra: " + ex.Message;
+        }
+    }
+
+    public void OkHandler()
+    {
+        isVisible = false;
+        Navigation.NavigateTo("/Admin", true);
+    }
+}

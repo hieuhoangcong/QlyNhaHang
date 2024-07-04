@@ -1,0 +1,172 @@
+﻿@using QL_NhaHang.Models;
+@inject IWebHostEnvironment WebHostEnvironment
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1050;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.5);
+        transition: opacity 0.3s ease;
+    }
+
+    .modal-dialog {
+        margin: 1.75rem auto;
+        max-width: 500px;
+    }
+
+    .modal-content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 0.3rem;
+        box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+        outline: 0;
+        padding: 0 !important;
+    }
+
+    .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1rem;
+        border-bottom: 1px solid #dee2e6;
+        border-top-left-radius: 0.3rem;
+        border-top-right-radius: 0.3rem;
+    }
+
+    .modal-title {
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .close {
+        padding: 0.75rem 1.25rem;
+        background-color: transparent;
+        border: 0;
+        cursor: pointer;
+    }
+
+    .modal-body {
+        position: relative;
+        flex: 1 1 auto;
+        padding: 1rem;
+    }
+
+    .modal-footer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 1rem;
+        border-top: 1px solid #dee2e6;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-secondary {
+        color: #fff;
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .btn {
+        display: inline-block;
+        font-weight: 400;
+        color: #212529;
+        text-align: center;
+        vertical-align: middle;
+        user-select: none;
+        background-color: transparent;
+        border: 1px solid transparent;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+</style>
+
+<div class="modal" tabindex="-1" role="dialog" style="display:@(IsVisible ? "block" : "none")">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editMenuModalLabel">Chỉnh sửa món ăn</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="menuName">Tên món ăn</label>
+                    <input type="text" class="form-control" id="menuName" @bind="Item.Name" />
+                </div>
+                <div class="form-group">
+                    <label for="menuImg">Ảnh</label>
+                    <InputFile class="form-control" id="menuImgFile" OnChange="UploadImage" />
+                    @if (!string.IsNullOrEmpty(Item.Img))
+                    {
+                        <img src="@Item.Img" alt="Menu Image" style="max-width: 100px; max-height: 100px;" />
+                    }
+                </div>
+                <div class="form-group">
+                    <label for="menuPrice">Giá</label>
+                    <input type="number" class="form-control" id="menuPrice" @bind="Item.Price" />
+                </div>
+                <div class="form-group">
+                    <label for="menuDescription">Mô tả</label>
+                    <textarea class="form-control" id="menuDescription" rows="3" @bind="Item.Description"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" @onclick="Edit">Lưu</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public bool IsVisible { get; set; }
+    [Parameter]
+    public EventCallback<bool> IsVisibleChanged { get; set; }
+    [Parameter]
+    public Menu Item { get; set; }
+    public readonly QlNhaHangContext _context = new QlNhaHangContext();
+    public async void Close()
+    {
+        await IsVisibleChanged.InvokeAsync(false);
+    }
+
+    async Task Edit()
+    {
+        _context.Menus.Update(Item);
+        _context.SaveChanges();
+        Close();
+    }
+    private async Task UploadImage(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        var fileName = Path.GetRandomFileName() + Path.GetExtension(file.Name);
+        var filePath = Path.Combine(WebHostEnvironment.WebRootPath, "uploads", fileName);
+
+        Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await file.OpenReadStream().CopyToAsync(stream);
+        }
+        Item.Img = $"uploads/{fileName}";
+    }
+}

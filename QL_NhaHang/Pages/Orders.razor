@@ -1,0 +1,178 @@
+﻿@page "/order"
+@using QL_NhaHang.Models;
+@using Microsoft.EntityFrameworkCore;
+@inject NavigationManager Navigation
+
+<style>
+    .reservation-form {
+        padding: 50px 0;
+        background-color: #f8f9fa;
+    }
+
+    .modal {
+        display: @((isVisible) ? "block" : "none");
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 300px;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    }
+
+    .close {
+        color: #aaa;
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+</style>
+
+<div class="reservation-form">
+    <div class="container">
+        <h2 class="text-center">Thông tin đặt hàng</h2>
+        <form @onsubmit="SaveOrder">
+            <div class="form-group">
+                <label for="customerName">Tên Khách Hàng</label>
+                <input type="text" class="form-control" id="customerName" @bind="order.CustomerName" placeholder="Nhập tên khách hàng" required>
+            </div>
+            <div class="form-group">
+                <label for="numberPhone">Số điện thoại</label>
+                <input type="text" class="form-control" id="numberPhone" @bind="order.NumberPhone" placeholder="Nhập số điện thoại" required>
+            </div>
+            <div class="form-group">
+                <label for="tableSelect">Chọn bàn</label>
+                <select class="form-control" id="tableSelect" @bind="order.IdTable">
+                    <option value="" disabled selected>Chọn bàn</option>
+                    @foreach (var dinnerTable in dinnerTables)
+                    {
+                        <option value="@dinnerTable.Id">@dinnerTable.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="date">Ngày Đặt Hàng</label>
+                <input type="date" class="form-control" id="date" @bind="order.Date" required>
+            </div>
+            <h4>Danh sách món ăn</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Món ăn</th>
+                        <th>Số lượng</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in order.ItemOrders)
+                    {
+                        <tr>
+                            <td>
+                                <select class="form-control" @bind="item.IdMenu">
+                                    <option value="" disabled selected>Chọn thực đơn</option>
+                                    @foreach (var menu in menus)
+                                    {
+                                        <option value="@menu.Id">@menu.Name</option>
+                                    }
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" @bind="item.Number" placeholder="Số Lượng" required>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" @onclick="() => RemoveMenuItem(item)">Xóa</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-primary mt-3" @onclick="AddMenuItem">Thêm thực đơn</button>
+
+            <button type="submit" class="btn btn-primary mt-3">Lưu Đơn Hàng</button>
+        </form>
+    </div>
+</div>
+
+<div class="modal">
+    <div class="modal-content">
+        <span class="close" @onclick="() => isVisible = false">&times;</span>
+        <p>@message</p>
+    </div>
+</div>
+
+@code {
+    public Order order = new Order();
+    public List<Menu> menus = new List<Menu>();
+    public List<DinnerTable> dinnerTables = new List<DinnerTable>();
+    public readonly QlNhaHangContext _context = new QlNhaHangContext();
+    public string message;
+    public bool isVisible = false;
+    protected override async Task OnInitializedAsync()
+    {
+        order = new Order
+            {
+                ItemOrders = new List<ItemOrder>()
+            };
+        menus = await _context.Menus.ToListAsync();
+
+        dinnerTables = await _context.DinnerTables.ToListAsync();
+    }
+
+    async Task SaveOrder()
+    {
+        order.Id = Guid.NewGuid();
+        order.Status = false;
+        order.CreateAt = DateTime.Now;
+        foreach (var itemOrder in order.ItemOrders)
+        {
+            itemOrder.Id = Guid.NewGuid();
+            itemOrder.IdOrder = order.Id;
+            _context.ItemOrders.Add(itemOrder);
+        }
+        _context.Orders.Add(order);
+        await _context.SaveChangesAsync();
+        message = "Lưu thành công!";
+        isVisible = true;
+        order = new Order
+            {
+                ItemOrders = new List<ItemOrder>()
+            };
+        
+    }
+
+    void AddMenuItem()
+    {
+        var newItemOrder = new ItemOrder();
+        order.ItemOrders.Add(newItemOrder);
+    }
+
+    void RemoveMenuItem(ItemOrder item)
+    {
+        order.ItemOrders.Remove(item);
+    }
+}

@@ -1,0 +1,66 @@
+﻿@inherits LayoutComponentBase
+@inject IJSRuntime JSRuntime
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+<div class="sidebar">
+    <NavMenu />
+</div>
+<main>
+    <article class="content pb-3">
+        @Body
+    </article>
+</main>
+<button class="scroll-to-top" @onclick="ScrollToTop">
+    <i class="fas fa-arrow-up"></i>
+</button>
+<footer class="footer bg-light text-center text-lg-start mt-auto py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h5 class="text-uppercase">Liên hệ</h5>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="mailto:contact@gmail.com"><i class="fas fa-envelope"></i> Email: quanlynhahang@gmail.com</a>
+                    </li>
+                    <li>
+                        <a href="tel:+0984457555"><i class="fas fa-phone"></i> Điện thoại: 0984457555</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5 class="text-uppercase">Về chúng tôi</h5>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#!">Giới thiệu</a>
+                    </li>
+                    <li>
+                        <a href="#!">Chính sách bảo mật</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5 class="text-uppercase">Theo dõi chúng tôi</h5>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center py-3">
+            © 2024 QUẢN LÝ NHÀ HÀNG. All rights reserved.
+        </div>
+    </div>
+</footer>
+
+@code {
+    private void ScrollToTop()
+    {
+        // JavaScript interop to scroll to top
+        JSRuntime.InvokeVoidAsync("scrollToTop");
+    }
+}

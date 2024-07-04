@@ -1,0 +1,284 @@
+﻿@page "/Admin"
+
+@using Microsoft.EntityFrameworkCore
+@using QL_NhaHang.Models
+@using Blazored.LocalStorage
+@inject ILocalStorageService localStorage
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject QlNhaHangContext _context
+
+<div class="login-container" hidden="@isLoggedIn">
+    <div class="login-card">
+        <div class="login-left">
+            <img src="uploads/logo1.jpg" alt="Be Verified" class="login-image" />
+            <h3>Quản lý nhà hàng</h3>
+            <p>Testy Good Food xin chào quý khách!</p>
+        </div>
+        <div class="login-right">
+            <div class="login-card-body">
+                <h2 class="text-center mb-4">Đăng nhập</h2>
+                <EditForm Model="this" OnValidSubmit="LoginHandler">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <div class="form-group">
+                        <label for="username">Tên đăng nhập</label>
+                        <InputText id="username" class="form-control" @bind-Value="Username" placeholder="Nhập tên đăng nhập" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mật khẩu</label>
+                        <div class="input-group">
+                            <InputText id="password" type="@passwordInputType" class="form-control password-input" @bind-Value="Password" placeholder="Nhập mật khẩu" />
+                            <button type="button" class="btn btn-outline-secondary password-toggle-btn" @onclick="TogglePasswordVisibility">
+                                @passwordToggleIcon
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                </EditForm>
+                <div class="text-center mt-3">
+                    <p>Thêm quản trị viên? <a href="/Admin/Register">Đăng ký</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div hidden="@(isLoggedIn == false)">
+    <p>Bạn đã đăng nhập rồi, bạn có muốn đăng xuất?</p>
+    <button @onclick="LogoutHandler">Đăng xuất</button>
+</div>
+
+<Messages Title="Thông báo" Mess="@message" IsVisible="@isVisible" IsYesNo="false" OnOk="OkHandler"></Messages>
+<Messages Title="Thông báo" Mess="@message1" IsVisible="@isVisible1" IsYesNo="false" OnOk="OkHandler1"></Messages>
+<style>
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding: 1rem;
+        background: url('uploads/hoahong.jpg') no-repeat center center;
+        background-size: cover;
+    }
+
+    .login-card {
+        display: flex;
+        flex-direction: row; 
+        width: 100%;
+        max-width: 800px; 
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        transform: translateY(-90px);
+        background-color: #fff;
+    }
+
+    .login-left {
+        background-color: #007bff;
+        color: #fff;
+        padding: 2rem; /* Increased padding for better spacing */
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 50%; /* Set width for the left section */
+    }
+
+        .login-left .login-image {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .login-left h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-left p {
+            font-size: 0.9rem;
+        }
+
+    .login-right {
+        flex: 1;
+        padding: 2rem;
+        width: 50%; /* Set width for the right section */
+    }
+
+    .login-card-body h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        font-size: 1rem;
+        border-radius: 4px;
+        border: 1px solid #ced4da;
+        box-sizing: border-box;
+    }
+
+    .btn-block {
+        display: block;
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1rem;
+        font-weight: 500;
+        text-align: center;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+    }
+
+        .btn-block:hover {
+            background-color: #0056b3;
+        }
+
+    .input-group {
+        position: relative;
+    }
+
+    .password-input {
+        padding-right: 2.5rem;
+    }
+
+    .password-toggle-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        border: none;
+        background: transparent;
+        color: #007bff;
+        cursor: pointer;
+    }
+
+        .password-toggle-btn:hover {
+            color: #0056b3;
+        }
+
+
+</style>
+
+@code {
+    private string Username { get; set; }
+    private string Password { get; set; }
+    private string passwordInputType = "password";
+    private string passwordToggleIcon = "👁️"; // or use any icon you prefer
+    private string message { get; set; }
+    private bool isVisible = false;
+    private string message1 { get; set; }
+    private bool isVisible1 = false;
+    private bool isLoggedIn = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            isLoggedIn = true;
+        }
+    }
+
+    private void TogglePasswordVisibility()
+    {
+        if (passwordInputType == "password")
+        {
+            passwordInputType = "text";
+            passwordToggleIcon = "🙈"; // or use any icon you prefer
+        }
+        else
+        {
+            passwordInputType = "password";
+            passwordToggleIcon = "👁️"; // or use any icon you prefer
+        }
+    }
+
+    private async Task LoginHandler()
+    {
+        if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
+        {
+            isVisible1 = true;
+            message1 = "Vui lòng nhập tên đăng nhập và mật khẩu.";
+            return;
+        }
+
+        var user = await _context.Admins.FirstOrDefaultAsync(u => u.UserName == Username && u.Passwork == Password);
+        if (user != null)
+        {
+            try
+            {
+                if (_context.Database.CanConnect())
+                {
+                    await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(Username);
+                    isVisible = true;
+                    message = "Đăng nhập thành công!";
+                    return;
+                }
+                else
+                {
+                    isVisible1 = true;
+                    message1 = "Không thể kết nối đến cơ sở dữ liệu.";
+                    return;
+                }
+            }
+            catch (JSDisconnectedException ex)
+            {
+                isVisible1 = true;
+                message1 = "Kết nối đã bị ngắt: " + ex.Message;
+                return;
+            }
+        }
+        else
+        {
+            isVisible1 = true;
+            message1 = "Tên đăng nhập hoặc mật khẩu không chính xác.";
+            return;
+        }
+    }
+
+    private async void LogoutHandler()
+    {
+        await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsLoggedOut();
+        isLoggedIn = false;
+        Navigation.NavigateTo("/", true);
+    }
+
+    private void CancelLogoutHandler()
+    {
+        isVisible1 = false;
+    }
+
+    public void OkHandler1()
+    {
+        isVisible1 = false;
+    }
+
+    public void OkHandler()
+    {
+        isVisible = false;
+        Navigation.NavigateTo("/", true);
+    }
+}
