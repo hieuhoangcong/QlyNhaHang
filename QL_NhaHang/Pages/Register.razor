@@ -56,53 +56,78 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
+        padding-top: 70px;
+        align-items: flex-start;
         background: url('uploads/hoahong.jpg') no-repeat center center;
         background-size: cover;
     }
 
     .register-card {
-        width: 40%;
-        margin: 10px auto;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 50px; 
-        transform: translateY(-80px);
-    }
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 20px;
 
-    .register-left {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .register-right {
-        padding: 40px; 
-    }
-
-    .register-image {
-        width: 150px; 
-        height: auto;
-        margin-bottom: 10px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400px;
     }
 
     .register-card-body {
-        max-width: 400px;
-        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
     }
 
     .form-group {
-        margin-bottom: 25px; 
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
     }
 
     .input-group {
-        position: relative;
+        display: flex;
+        align-items: center;
     }
 
+        .input-group .form-control {
+            flex: 1;
+        }
+
     .input-group-append {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
+        margin-left: -1px;
+    }
+
+        .input-group-append .btn {
+            border-radius: 0 5px 5px 0;
+            border: 1px solid #ccc;
+            background-color: #f8f9fa;
+            cursor: pointer;
+        }
+
+    .btn {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .btn-block {
+        display: block;
+        width: 100%;
     }
 
     .btn-primary {
@@ -111,9 +136,18 @@
     }
 
         .btn-primary:hover {
-            background-color: #0069d9;
-            border-color: #0062cc;
+            background-color: #0056b3;
+            border-color: #004085;
         }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .mb-4 {
+        margin-bottom: 1.5rem;
+    }
+
 </style>
 @code {
     private string Username { get; set; }
@@ -121,8 +155,8 @@
     private string ConfirmPassword { get; set; }
     private string passwordInputType = "password";
     private string confirmPasswordInputType = "password";
-    private string passwordToggleIcon = "👁️"; 
-    private string confirmPasswordToggleIcon = "👁️";
+    private string passwordToggleIcon = "🙈";
+    private string confirmPasswordToggleIcon = "🙈";
     private string message { get; set; }
     private bool isVisible = false;
 
@@ -131,12 +165,12 @@
         if (passwordInputType == "password")
         {
             passwordInputType = "text";
-            passwordToggleIcon = "🙈"; 
+            passwordToggleIcon = "👁️";
         }
         else
         {
             passwordInputType = "password";
-            passwordToggleIcon = "👁️"; 
+            passwordToggleIcon = "🙈";
         }
     }
 
@@ -145,12 +179,12 @@
         if (confirmPasswordInputType == "password")
         {
             confirmPasswordInputType = "text";
-            confirmPasswordToggleIcon = "🙈"; 
+            confirmPasswordToggleIcon = "👁️";
         }
         else
         {
             confirmPasswordInputType = "password";
-            confirmPasswordToggleIcon = "👁️"; 
+            confirmPasswordToggleIcon = "🙈";
         }
     }
 

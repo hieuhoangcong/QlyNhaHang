@@ -82,8 +82,8 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th>#</th>
-                                    <th>Ảnh</th>
                                     <th>Món ăn</th>
+                                    <th>Ảnh</th>
                                     <th>Mô tả</th>
                                     <th>Giá</th>
                                     <th>Hành động</th>
@@ -94,8 +94,9 @@
                                 {
                                     <tr>
                                         <td>@item.Id</td>
-                                        <td><img style="height: 100px; width: auto" src="@item.Img" /></td>
+                                       
                                         <td>@item.Name</td>
+                                        <td><img style="height: 100px; width: auto" src="@item.Img" /></td>
                                         <td>@item.Description</td>
                                         <td>@item.Price.Value.ToString("N0") VNĐ</td>
                                         <td>

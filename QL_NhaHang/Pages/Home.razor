@@ -148,13 +148,9 @@
     </script>
 </body>
 
-
-
-
-
 <div class="reservation-form">
     <div class="container">
-        <h2 class="text-center">Thông tin đặt hàng</h2>
+        <h2 class="text-center">Thông tin đặt bàn</h2>
         <form @onsubmit="SaveOrder">
             <div class="form-group">
                 <label for="customerName">Tên Khách Hàng</label>
@@ -175,10 +171,14 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="date">Ngày Đặt Hàng</label>
+                <label for="date">Ngày Đặt Bàn</label>
                 <input type="date" class="form-control" id="date" @bind="order.Date" required>
             </div>
-            <h4>Danh sách món ăn</h4>
+            <div class="form-group">
+                <label for="time">Thời gian đặt bàn</label>
+                <input type="time" class="form-control" id="time" @bind="order.Time" required>
+            </div>
+            <h4>Danh sách thực đơn</h4>
             <table class="table">
                 <thead>
                     <tr>
@@ -211,11 +211,11 @@
                 </tbody>
             </table>
             <button type="button" class="btn btn-primary mt-3" @onclick="AddMenuItem">Thêm thực đơn</button>
-
             <button type="submit" class="btn btn-primary mt-3">Lưu Đơn Hàng</button>
         </form>
     </div>
 </div>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

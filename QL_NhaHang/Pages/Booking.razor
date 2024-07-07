@@ -44,26 +44,27 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>STT</th> <!-- New serial number column header -->
+                            <th>STT</th>
                             <th>Tên Khách Hàng</th>
                             <th>Số Điện Thoại</th>
                             <th>Bàn</th>
                             <th>Ngày Đặt</th>
+                            <th>Thời gian đặt</th> <!-- New column for time -->
                             <th>Ngày tạo</th>
                             <th>Trạng thái</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var order in PaginatedOrders.Select((value, index) => new { value, index })) 
+                        @foreach (var order in PaginatedOrders.Select((value, index) => new { value, index }))
                         {
                             <tr>
-                                <td>@(order.index + 1 + (CurrentPage - 1) * PageSize)</td> <!-- Display serial number -->
-          
+                                <td>@(order.index + 1 + (CurrentPage - 1) * PageSize)</td>
                                 <td>@order.value.CustomerName</td>
                                 <td>@order.value.NumberPhone</td>
-                                <td>@order.value.IdTableNavigation.Name</td>
+                                <td>@order.value.IdTableNavigation?.Name</td>
                                 <td>@order.value.Date?.ToString("dd/MM/yyyy")</td>
+                                <td>@order.value.Time?.ToString("hh:mm tt")</td>
                                 <td>@order.value.CreateAt?.ToString("dd/MM/yyyy HH:mm:ss")</td>
                                 <td class="status-cell @(order.value.Status.HasValue && order.value.Status.Value ? "green" : "orange")">
                                     <span>@(order.value.Status.HasValue && order.value.Status.Value ? "Đã thanh toán" : "Chưa thanh toán")</span>
@@ -140,7 +141,7 @@
         }
         else
         {
-            <p class="text-center text-muted">Không có đơn hàng nào.</p>
+            <p class="text-center text-muted">Không có hóa đơn nào.</p>
         }
 
         @if (showUpdateMenuModal)

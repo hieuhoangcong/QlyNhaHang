@@ -21,31 +21,56 @@
         padding: 20px;
         text-align: center;
         color: #fff;
+        position: relative;
     }
 
-    .dashboard-card h3 {
-        margin: 0;
-        font-size: 2.5rem;
-    }
+        .dashboard-card i {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 2.5rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
 
-    .dashboard-card p {
-        margin: 5px 0 0;
-        font-size: 1.25rem;
-    }
+        .dashboard-card h3 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .dashboard-card p {
+            margin: 5px 0 0;
+            font-size: 1.25rem;
+        }
 
     .chart-container {
         width: 100%;
         height: 400px;
     }
 
-    .card-bg-1 { background-color: #ff6f61; }
-    .card-bg-2 { background-color: #6cb2eb; }
-    .card-bg-3 { background-color: #48c774; }
-    .card-bg-4 { background-color: #ffdd57; }
-    .card-bg-5 { background-color: #b294bb; }
-    .card-bg-6 { background-color: #f66d9b; }
+    .card-bg-1 {
+        background-color: #ff6f61;
+    }
 
- 
+    .card-bg-2 {
+        background-color: #6cb2eb;
+    }
+
+    .card-bg-3 {
+        background-color: #48c774;
+    }
+
+    .card-bg-4 {
+        background-color: #ffdd57;
+    }
+
+    .card-bg-5 {
+        background-color: #b294bb;
+    }
+
+    .card-bg-6 {
+        background-color: #f66d9b;
+    }
+
 </style>
 
 <AuthorizeView>
@@ -56,26 +81,32 @@
 
         <div class="dashboard">
             <div class="dashboard-card card-bg-1">
+                <i class="fas fa-concierge-bell"></i>
                 <h3>@MenuCount</h3>
-                <p>Sản phẩm</p>
+                <p>Món ăn</p>
             </div>
             <div class="dashboard-card card-bg-2">
+                <i class="fas fa-chair"></i>
                 <h3>@TableCount</h3>
                 <p>Bàn ăn</p>
             </div>
             <div class="dashboard-card card-bg-3">
+                <i class="fas fa-receipt"></i>
                 <h3>@paidOrders / @unpaidOrders</h3>
                 <p>Đã thanh toán / Chưa thanh toán</p>
             </div>
             <div class="dashboard-card card-bg-4">
+                <i class="fas fa-user-cog"></i>
                 <h3>@AdminCount</h3>
                 <p>Quản trị</p>
             </div>
             <div class="dashboard-card card-bg-5">
+                <i class="fas fa-dollar-sign"></i>
                 <h3>@totalRevenue VNĐ</h3>
                 <p>Tổng doanh thu</p>
             </div>
             <div class="dashboard-card card-bg-6">
+                <i class="fas fa-coins"></i>
                 <h3>@todayRevenue VNĐ</h3>
                 <p>Doanh thu hôm nay</p>
             </div>
@@ -83,7 +114,7 @@
 
         <div class="card mb-4">
             <div class="card-header">
-                <h5 class="card-title">Doanh thu theo ngày tạo</h5>
+                <h5 class="card-title">Doanh thu theo ngày</h5>
             </div>
             <div class="card-body">
                 <div class="chart-container">
@@ -94,7 +125,7 @@
 
         <div class="card mb-4">
             <div class="card-header">
-                <h5 class="card-title">Số lượng hóa đơn theo ngày tạo</h5>
+                <h5 class="card-title">Số lượng hóa đơn theo ngày</h5>
             </div>
             <div class="card-body">
                 <div class="chart-container">

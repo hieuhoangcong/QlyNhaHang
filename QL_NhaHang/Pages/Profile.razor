@@ -1,0 +1,137 @@
+﻿@page "/profile"
+@using QL_NhaHang.Models
+@using Microsoft.EntityFrameworkCore
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject NavigationManager Navigation
+@inject QlNhaHangContext DbContext
+@inject AuthenticationStateProvider AuthenticationStateProvider
+<AuthorizeView>
+    <Authorized>
+<h3 class="page-title">Tài Khoản</h3>
+
+<div class="profile-page">
+    <div class="profile-container">
+        <div class="profile-info">
+            <h4 class="section-title">Thông tin tài khoản</h4>
+            <div class="account-info">
+                <img src="uploads/avt.jpg" alt="Avatar" class="avatar">
+                <p class="username">User: @username</p>
+                <label>Email:</label>
+                <input class="input-field" @bind="email" placeholder="Nhập email mới">
+                <button class="update-button" @onclick="UpdateEmail">Cập nhật email</button>
+            </div>
+        </div>
+        <div class="password-change">
+            <h4 class="section-title">Đổi mật khẩu</h4>
+            <label>Mật khẩu hiện tại:</label>
+            <input type="password" class="input-field" @bind="currentPassword" placeholder="Nhập mật khẩu hiện tại">
+            <label>Mật khẩu mới:</label>
+            <input type="password" class="input-field" @bind="newPassword" placeholder="Nhập mật khẩu mới">
+            <label>Xác nhận mật khẩu mới:</label>
+            <input type="password" class="input-field" @bind="confirmNewPassword" placeholder="Xác nhận mật khẩu mới">
+            <button class="update-button" @onclick="ChangePassword">Đổi mật khẩu</button>
+        </div>
+    </div>
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @successMessage
+        </div>
+    }
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @errorMessage
+        </div>
+    }
+</div>
+ </Authorized>
+    <NotAuthorized>
+        <p>Bạn không có quyền truy cập vào trang này. Vui lòng <a href="/Admin">đăng nhập</a>.</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private string email = string.Empty;
+    private string username;
+    private string currentPassword;
+    private string newPassword;
+    private string confirmNewPassword;
+    private bool isFirstRender = true;
+    private string successMessage;
+    private string errorMessage;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            isFirstRender = false;
+            username = await localStorage.GetItemAsync<string>("username");
+            var user = await DbContext.Admins.FirstOrDefaultAsync(u => u.UserName == username);
+            if (user != null)
+            {
+                email = user.Email ?? string.Empty;
+            }
+            StateHasChanged(); 
+        }
+    }
+
+    private async Task UpdateEmail()
+    {
+        try
+        {
+            var user = await DbContext.Admins.FirstOrDefaultAsync(u => u.UserName == username);
+            if (user != null)
+            {
+                user.Email = email;
+                DbContext.Admins.Update(user);
+                await DbContext.SaveChangesAsync();
+                successMessage = "Cập nhật email thành công!";
+                errorMessage = string.Empty;
+            }
+            else
+            {
+                errorMessage = "Người dùng không tồn tại.";
+                successMessage = string.Empty;
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Lỗi khi cập nhật email: {ex.Message}";
+            successMessage = string.Empty;
+        }
+    }
+
+    private async Task ChangePassword()
+    {
+        try
+        {
+            if (newPassword != confirmNewPassword)
+            {
+                errorMessage = "Mật khẩu mới và xác nhận mật khẩu không khớp.";
+                successMessage = string.Empty;
+                return;
+            }
+
+            var user = await DbContext.Admins.FirstOrDefaultAsync(u => u.UserName == username);
+            if (user != null && user.Passwork == currentPassword)
+            {
+                user.Passwork = newPassword;
+                DbContext.Admins.Update(user);
+                await DbContext.SaveChangesAsync();
+                successMessage = "Đổi mật khẩu thành công!";
+                errorMessage = string.Empty;
+            }
+            else
+            {
+                errorMessage = "Mật khẩu hiện tại không đúng.";
+                successMessage = string.Empty;
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Lỗi khi đổi mật khẩu: {ex.Message}";
+            successMessage = string.Empty;
+        }
+    }
+}

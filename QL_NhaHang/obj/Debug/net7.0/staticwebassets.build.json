@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "dvFGERmJj7E3v+NbrTmSXqaq1UnW/Zb2RIfg+P4UqLM=",
+  "Hash": "rxNXKE8faAy0tiTWjI85evBV2jGXYgQWqFm7pZm/W7Q=",
   "Source": "QL_NhaHang",
   "BasePath": "_content/QL_NhaHang",
   "Mode": "Default",
@@ -1499,6 +1499,25 @@
       "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
+      "Identity": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\wwwroot\\uploads\\avt.jpg",
+      "SourceId": "QL_NhaHang",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\wwwroot\\",
+      "BasePath": "_content/QL_NhaHang",
+      "RelativePath": "uploads/avt.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\avt.jpg"
+    },
+    {
       "Identity": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\wwwroot\\uploads\\cnlfaepu.21u.jfif",
       "SourceId": "QL_NhaHang",
       "SourceType": "Discovered",
@@ -1820,6 +1839,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\pxuuycjv.zio.jfif"
+    },
+    {
+      "Identity": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\wwwroot\\uploads\\qv4asl3k.pdn.jpg",
+      "SourceId": "QL_NhaHang",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\wwwroot\\",
+      "BasePath": "_content/QL_NhaHang",
+      "RelativePath": "uploads/qv4asl3k.pdn.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\qv4asl3k.pdn.jpg"
     },
     {
       "Identity": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\wwwroot\\uploads\\rkgr1szv.jtd.jfif",

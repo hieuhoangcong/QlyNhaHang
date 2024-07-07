@@ -12,4 +12,6 @@ public partial class Admin
     public string? UserName { get; set; }
 
     public string? Passwork { get; set; }
+    public string? Email { get; set; }
+    
 }
