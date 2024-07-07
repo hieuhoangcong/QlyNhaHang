@@ -11,8 +11,16 @@
       "RelativeMoniker": "D:0:0:{315736A3-AE4F-4F8B-8963-4B20627426D2}|QL_NhaHang\\QL_NhaHang.csproj|solutionrelative:ql_nhahang\\pages\\table.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{315736A3-AE4F-4F8B-8963-4B20627426D2}|QL_NhaHang\\QL_NhaHang.csproj|f:\\webcuoiky\\webcuoiky\\ql_nhahang\\ql_nhahang\\ql_nhahang\\shared\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{315736A3-AE4F-4F8B-8963-4B20627426D2}|QL_NhaHang\\QL_NhaHang.csproj|solutionrelative:ql_nhahang\\shared\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{315736A3-AE4F-4F8B-8963-4B20627426D2}|QL_NhaHang\\QL_NhaHang.csproj|f:\\webcuoiky\\webcuoiky\\ql_nhahang\\ql_nhahang\\ql_nhahang\\pages\\register.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{315736A3-AE4F-4F8B-8963-4B20627426D2}|QL_NhaHang\\QL_NhaHang.csproj|solutionrelative:ql_nhahang\\pages\\register.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{315736A3-AE4F-4F8B-8963-4B20627426D2}|QL_NhaHang\\QL_NhaHang.csproj|f:\\webcuoiky\\webcuoiky\\ql_nhahang\\ql_nhahang\\ql_nhahang\\models\\admin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{315736A3-AE4F-4F8B-8963-4B20627426D2}|QL_NhaHang\\QL_NhaHang.csproj|solutionrelative:ql_nhahang\\models\\admin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{315736A3-AE4F-4F8B-8963-4B20627426D2}|QL_NhaHang\\QL_NhaHang.csproj|f:\\webcuoiky\\webcuoiky\\ql_nhahang\\ql_nhahang\\ql_nhahang\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
@@ -21,10 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{315736A3-AE4F-4F8B-8963-4B20627426D2}|QL_NhaHang\\QL_NhaHang.csproj|f:\\webcuoiky\\webcuoiky\\ql_nhahang\\ql_nhahang\\ql_nhahang\\pages\\login.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{315736A3-AE4F-4F8B-8963-4B20627426D2}|QL_NhaHang\\QL_NhaHang.csproj|solutionrelative:ql_nhahang\\pages\\login.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{315736A3-AE4F-4F8B-8963-4B20627426D2}|QL_NhaHang\\QL_NhaHang.csproj|f:\\webcuoiky\\webcuoiky\\ql_nhahang\\ql_nhahang\\ql_nhahang\\shared\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{315736A3-AE4F-4F8B-8963-4B20627426D2}|QL_NhaHang\\QL_NhaHang.csproj|solutionrelative:ql_nhahang\\shared\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{315736A3-AE4F-4F8B-8963-4B20627426D2}|QL_NhaHang\\QL_NhaHang.csproj|f:\\webcuoiky\\webcuoiky\\ql_nhahang\\ql_nhahang\\ql_nhahang\\pages\\_host.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -134,11 +138,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Admin.cs",
+              "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Models\\Admin.cs",
+              "RelativeDocumentMoniker": "QL_NhaHang\\Models\\Admin.cs",
+              "ToolTip": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Models\\Admin.cs",
+              "RelativeToolTip": "QL_NhaHang\\Models\\Admin.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-07T12:56:45.841Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -148,27 +165,27 @@
               "RelativeDocumentMoniker": "QL_NhaHang\\Pages\\Profile.razor",
               "ToolTip": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Pages\\Profile.razor",
               "RelativeToolTip": "QL_NhaHang\\Pages\\Profile.razor",
-              "ViewState": "AQIAACQAAAAAAAAAAAAAADQAAAAAAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABgAAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-07-07T12:48:31.413Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "NavMenu.razor",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Shared\\NavMenu.razor",
               "RelativeDocumentMoniker": "QL_NhaHang\\Shared\\NavMenu.razor",
               "ToolTip": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Shared\\NavMenu.razor",
               "RelativeToolTip": "QL_NhaHang\\Shared\\NavMenu.razor",
-              "ViewState": "AQIAACgAAAAAAAAAAAAiwDUAAAAGAAAA",
+              "ViewState": "AQIAABYAAAAAAAAAAAAiwCIAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-06-06T07:54:24.65Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "_Host.cshtml",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Pages\\_Host.cshtml",
               "RelativeDocumentMoniker": "QL_NhaHang\\Pages\\_Host.cshtml",
@@ -176,12 +193,11 @@
               "RelativeToolTip": "QL_NhaHang\\Pages\\_Host.cshtml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACsAAAA/AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-06T07:57:23.983Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-06T07:57:23.983Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "site.css",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\wwwroot\\css\\site.css",
               "RelativeDocumentMoniker": "QL_NhaHang\\wwwroot\\css\\site.css",
@@ -189,12 +205,11 @@
               "RelativeToolTip": "QL_NhaHang\\wwwroot\\css\\site.css",
               "ViewState": "AQIAAFIBAAAAAAAAAAAAAFIBAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-06-06T07:56:40.328Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-06T07:56:40.328Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "MainLayout.razor",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Shared\\MainLayout.razor",
               "RelativeDocumentMoniker": "QL_NhaHang\\Shared\\MainLayout.razor",
@@ -202,12 +217,11 @@
               "RelativeToolTip": "QL_NhaHang\\Shared\\MainLayout.razor",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-06T23:41:13.211Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-06T23:41:13.211Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "Login.razor",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Pages\\Login.razor",
               "RelativeDocumentMoniker": "QL_NhaHang\\Pages\\Login.razor",
@@ -215,18 +229,17 @@
               "RelativeToolTip": "QL_NhaHang\\Pages\\Login.razor",
               "ViewState": "AQIAAKsAAAAAAAAAAAAiwLoAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-06T07:47:09.492Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-06T07:47:09.492Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Register.razor",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Pages\\Register.razor",
               "RelativeDocumentMoniker": "QL_NhaHang\\Pages\\Register.razor",
               "ToolTip": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Pages\\Register.razor",
               "RelativeToolTip": "QL_NhaHang\\Pages\\Register.razor",
-              "ViewState": "AQIAADIAAAAAAAAAAAAiwD8AAAAAAAAA",
+              "ViewState": "AQIAALAAAAAAAAAAAAAiwEUAAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-06-16T03:25:59.352Z",
               "EditorCaption": ""
@@ -239,14 +252,14 @@
               "RelativeDocumentMoniker": "QL_NhaHang\\Pages\\Table.razor",
               "ToolTip": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Pages\\Table.razor",
               "RelativeToolTip": "QL_NhaHang\\Pages\\Table.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA",
+              "ViewState": "AQIAAGkAAAAAAAAAAAAAAHwAAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-06-06T07:31:03.656Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "Statistics.razor",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Pages\\Statistics.razor",
               "RelativeDocumentMoniker": "QL_NhaHang\\Pages\\Statistics.razor",
@@ -254,12 +267,11 @@
               "RelativeToolTip": "QL_NhaHang\\Pages\\Statistics.razor",
               "ViewState": "AQIAAGkAAAAAAAAAAAAAAHgAAAA3AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-15T05:18:54.534Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-15T05:18:54.534Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "QlNhaHangContext.cs",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Models\\QlNhaHangContext.cs",
               "RelativeDocumentMoniker": "QL_NhaHang\\Models\\QlNhaHangContext.cs",
@@ -267,12 +279,11 @@
               "RelativeToolTip": "QL_NhaHang\\Models\\QlNhaHangContext.cs",
               "ViewState": "AQIAACEAAAAAAAAAAAA6wC8AAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-04T11:39:12.882Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-04T11:39:12.882Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Home.razor",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Pages\\Home.razor",
               "RelativeDocumentMoniker": "QL_NhaHang\\Pages\\Home.razor",
@@ -280,12 +291,11 @@
               "RelativeToolTip": "QL_NhaHang\\Pages\\Home.razor",
               "ViewState": "AQIAAKwAAAAAAAAAAAAiwLsAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-06T07:33:28.264Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-06T07:33:28.264Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "Orders.razor",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Pages\\Orders.razor",
               "RelativeDocumentMoniker": "QL_NhaHang\\Pages\\Orders.razor",
@@ -293,12 +303,11 @@
               "RelativeToolTip": "QL_NhaHang\\Pages\\Orders.razor",
               "ViewState": "AQIAAEIAAAAAAAAAAAAAAFUAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-11T14:23:44.169Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-11T14:23:44.169Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "Booking.razor",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Pages\\Booking.razor",
               "RelativeDocumentMoniker": "QL_NhaHang\\Pages\\Booking.razor",
@@ -306,12 +315,11 @@
               "RelativeToolTip": "QL_NhaHang\\Pages\\Booking.razor",
               "ViewState": "AQIAAHoAAAAAAAAAAAAAAI0AAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-03T02:58:33.738Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-03T02:58:33.738Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "NavMenu.razor.css",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Shared\\NavMenu.razor.css",
               "RelativeDocumentMoniker": "QL_NhaHang\\Shared\\NavMenu.razor.css",
@@ -319,12 +327,11 @@
               "RelativeToolTip": "QL_NhaHang\\Shared\\NavMenu.razor.css",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-06-06T07:56:53.14Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-06T07:56:53.14Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "Food.razor",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Pages\\Food.razor",
               "RelativeDocumentMoniker": "QL_NhaHang\\Pages\\Food.razor",
@@ -332,12 +339,11 @@
               "RelativeToolTip": "QL_NhaHang\\Pages\\Food.razor",
               "ViewState": "AQIAAFcAAAAAAAAAAAAAAGMAAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-06T10:17:45.804Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-06T10:17:45.804Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "CustomConverters.cs",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Models\\CustomConverters.cs",
               "RelativeDocumentMoniker": "QL_NhaHang\\Models\\CustomConverters.cs",
@@ -345,12 +351,11 @@
               "RelativeToolTip": "QL_NhaHang\\Models\\CustomConverters.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-06T01:55:52.655Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-06T01:55:52.655Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "Order.cs",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Models\\Order.cs",
               "RelativeDocumentMoniker": "QL_NhaHang\\Models\\Order.cs",
@@ -358,12 +363,11 @@
               "RelativeToolTip": "QL_NhaHang\\Models\\Order.cs",
               "ViewState": "AQIAAAoAAAAAAAAAAAAxwB0AAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T08:47:43.382Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-06T08:47:43.382Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "CustomAuthenticationStateProvider.cs",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Models\\CustomAuthenticationStateProvider.cs",
               "RelativeDocumentMoniker": "QL_NhaHang\\Models\\CustomAuthenticationStateProvider.cs",
@@ -371,12 +375,11 @@
               "RelativeToolTip": "QL_NhaHang\\Models\\CustomAuthenticationStateProvider.cs",
               "ViewState": "AQIAABsAAAAAAAAAAAAYwAwAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-16T01:53:30.052Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-16T01:53:30.052Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "Program.cs",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Program.cs",
               "RelativeDocumentMoniker": "QL_NhaHang\\Program.cs",
@@ -384,12 +387,11 @@
               "RelativeToolTip": "QL_NhaHang\\Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T14:24:41.087Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-06T14:24:41.087Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "Menu.cs",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Models\\Menu.cs",
               "RelativeDocumentMoniker": "QL_NhaHang\\Models\\Menu.cs",
@@ -401,7 +403,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "ItemOrder.cs",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Models\\ItemOrder.cs",
               "RelativeDocumentMoniker": "QL_NhaHang\\Models\\ItemOrder.cs",
@@ -413,7 +415,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "DinnerTable.cs",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Models\\DinnerTable.cs",
               "RelativeDocumentMoniker": "QL_NhaHang\\Models\\DinnerTable.cs",
@@ -425,7 +427,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "JSRuntimeExtensions.cs",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Models\\JSRuntimeExtensions.cs",
               "RelativeDocumentMoniker": "QL_NhaHang\\Models\\JSRuntimeExtensions.cs",
@@ -437,7 +439,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "Error.cshtml",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Pages\\Error.cshtml",
               "RelativeDocumentMoniker": "QL_NhaHang\\Pages\\Error.cshtml",
@@ -449,7 +451,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "MainLayout.razor.css",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Shared\\MainLayout.razor.css",
               "RelativeDocumentMoniker": "QL_NhaHang\\Shared\\MainLayout.razor.css",
@@ -461,7 +463,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "Messages.razor",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Shared\\Messages.razor",
               "RelativeDocumentMoniker": "QL_NhaHang\\Shared\\Messages.razor",
@@ -473,7 +475,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "App.razor",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\App.razor",
               "RelativeDocumentMoniker": "QL_NhaHang\\App.razor",
@@ -485,7 +487,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "_Imports.razor",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\_Imports.razor",
               "RelativeDocumentMoniker": "QL_NhaHang\\_Imports.razor",
@@ -497,7 +499,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "appsettings.json",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\appsettings.json",
               "RelativeDocumentMoniker": "QL_NhaHang\\appsettings.json",
@@ -509,7 +511,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "EditMenuPopup.razor",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Pages\\Popup\\EditMenuPopup.razor",
               "RelativeDocumentMoniker": "QL_NhaHang\\Pages\\Popup\\EditMenuPopup.razor",
@@ -521,7 +523,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "EditTablePopup.razor",
               "DocumentMoniker": "F:\\webcuoiky\\webcuoiky\\QL_NhaHang\\QL_NhaHang\\QL_NhaHang\\Pages\\Popup\\EditTablePopup.razor",
               "RelativeDocumentMoniker": "QL_NhaHang\\Pages\\Popup\\EditTablePopup.razor",
